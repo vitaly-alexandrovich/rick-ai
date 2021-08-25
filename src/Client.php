@@ -55,7 +55,6 @@ class Client
      */
     protected function request($method, TransactionModelInterface $transaction) {
         $client = new HttpClient();
-        $client->setProxy('172.31.80.1:8888');
 
         $request = new Request($this->createEndpoint($method));
         $request->setMethod(Request::POST_METHOD);

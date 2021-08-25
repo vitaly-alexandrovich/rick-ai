@@ -22,18 +22,21 @@ class Client
     }
 
 
-    protected static function preparedTransaction(Transaction $transaction)
+    protected static function preparedTransaction(TransactionModelInterface $transaction)
     {
-        $transaction->items = array_map(function ($item) {
-            $item->sku = strval($item->sku);
-            $item->price = floatval($item->price);
+        if ($transaction instanceof Transaction) {
+            $transaction->items = array_map(function ($item) {
+                $item->sku = strval($item->sku);
+                $item->price = floatval($item->price);
 
-            return array_filter((array) $item, function ($prop) {
-                return !is_null($prop);
-            });
-        }, $transaction->items);
+                return array_filter((array) $item, function ($prop) {
+                    return !is_null($prop);
+                });
+            }, $transaction->items);
 
-        $transaction->transaction_id = strval($transaction->transaction_id);
+            $transaction->transaction_id = strval($transaction->transaction_id);
+        }
+
         $transaction->user_id = strval($transaction->user_id);
         $transaction->client_id = strval($transaction->client_id);
 

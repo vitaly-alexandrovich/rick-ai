@@ -1,0 +1,20 @@
+{
+    "name": "vitaly-alexandrovich/rick-ai",
+    "description": "Library for rick-ai api",
+    "version": "0.0.1",
+    "authors": [
+        {
+            "name": "Vitaly Dubovik",
+            "email": "dev.vitaly@gmail.com"
+        }
+    ],
+    "require": {
+        "vitaly-alexandrovich/http-client": "0.0.3",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "rickai\\": "src/"
+        }
+    }
+}

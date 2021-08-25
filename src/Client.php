@@ -59,9 +59,7 @@ class Client
      */
     protected function request($method, $endpoint, TransactionModelInterface $transaction) {
         $client = new HttpClient();
-        $client->setProxy('172.29.240.1:8888');
         $request = new Request($this->createEndpoint($method, $endpoint));
-        $request->setProxy('172.29.240.1:8888');
         $request->setMethod(Request::POST_METHOD);
         $request->setData(json_encode(static::preparedTransaction($transaction), JSON_PRETTY_PRINT));
         $request->setHeaders([

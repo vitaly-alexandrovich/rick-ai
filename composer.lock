@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "90e9e529ff5de45a1782b52c4bdb7ccf",
+    "content-hash": "1be4cc6580785b3e6b588620ba0e7700",
     "packages": [
         {
             "name": "vitaly-alexandrovich/http-client",

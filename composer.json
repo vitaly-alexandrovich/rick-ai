@@ -1,7 +1,7 @@
 {
     "name": "vitaly-alexandrovich/rick-ai",
     "description": "Library for rick-ai api",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "authors": [
         {
             "name": "Vitaly Dubovik",
@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "vitaly-alexandrovich/http-client": "0.0.3",
+        "vitaly-alexandrovich/http-client": "*",
         "ext-json": "*"
     },
     "autoload": {

@@ -9,6 +9,7 @@ use rickai\models\TransactionModelInterface;
 class Client
 {
     const TRANSACTIONS_ENDPOINT = 'https://exchange.rick.ai/transactions';
+    const WEBHOOKS_ENDPOINT = 'https://exchange.rick.ai/webhooks';
 
     private $company;
 
@@ -17,8 +18,8 @@ class Client
         $this->company = $company;
     }
 
-    protected function createEndpoint($method) {
-        return sprintf('%s/%s/%s', static::TRANSACTIONS_ENDPOINT, $this->company, $method);
+    protected function createEndpoint($method, $endpoint) {
+        return sprintf('%s/%s/%s', $endpoint, $this->company, $method);
     }
 
 
@@ -56,17 +57,22 @@ class Client
      * @param Transaction $transaction
      * @return bool
      */
-    protected function request($method, TransactionModelInterface $transaction) {
+    protected function request($method, $endpoint, TransactionModelInterface $transaction) {
         $client = new HttpClient();
-
-        $request = new Request($this->createEndpoint($method));
+        $client->setProxy('172.29.240.1:8888');
+        $request = new Request($this->createEndpoint($method, $endpoint));
+        $request->setProxy('172.29.240.1:8888');
         $request->setMethod(Request::POST_METHOD);
         $request->setData(json_encode(static::preparedTransaction($transaction), JSON_PRETTY_PRINT));
         $request->setHeaders([
             'Content-Type' => 'application/json'
         ]);
 
-        return $client->sendRequest($request)->getCode() == 200;
+        $response = $client->sendRequest($request);
+
+        var_dump($response->getBody());
+
+        return $response->getCode() == 200;
     }
 
     /**
@@ -77,7 +83,7 @@ class Client
      */
     public function create(Transaction $transaction)
     {
-        return $this->request('create', $transaction);
+        return $this->request('create', static::TRANSACTIONS_ENDPOINT, $transaction);
     }
 
     /**
@@ -88,7 +94,7 @@ class Client
      */
     public function update(Transaction $transaction)
     {
-        return $this->request('update', $transaction);
+        return $this->request('update', static::TRANSACTIONS_ENDPOINT, $transaction);
     }
 
     /**
@@ -99,6 +105,6 @@ class Client
      */
     public function lead(Lead $lead)
     {
-        return $this->request('lead', $lead);
+        return $this->request('lead', static::WEBHOOKS_ENDPOINT, $lead);
     }
 }

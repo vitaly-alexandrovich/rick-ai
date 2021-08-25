@@ -68,8 +68,6 @@ class Client
 
         $response = $client->sendRequest($request);
 
-        var_dump($response->getBody());
-
         return $response->getCode() == 200;
     }
 
